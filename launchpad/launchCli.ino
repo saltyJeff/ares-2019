@@ -1,4 +1,4 @@
-#include <FlashStorage.h>
+#include <Persist.h>
 #include "rocket.h"
 #include "launchCli.h"
 #include "RocketFuncs.h"
@@ -137,6 +137,7 @@ namespace Rocket {
             handlers[i]->refresh();
             refreshTimes[i] = millis() - startTime;
         }
+        data.timestamp = millis();
     }
     void callibrate() {
         for(int i = 0; i < MODULE_NUM; i++) {

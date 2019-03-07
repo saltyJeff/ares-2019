@@ -1,46 +1,32 @@
-///https://github.com/sparkfun/SparkFun_MPU-9250-DMP_Arduino_Library/archive/master.zip
+///https://github.com/saltyJeff/I2C_MPU6050/archive/master.zip
 #include "RocketModule.h"
-#include <SparkFunMPU9250-DMP.h>
 #include <Wire.h>
+#include <I2Cdev.h>
+#include <MPU6050.h>
 namespace MPU {
     extern float accelX;
     extern float accelY;
     extern float accelZ;
-    extern float gyroX;
-    extern float gyroY;
-    extern float gyroZ;
-    extern float magX;
-    extern float magY;
-    extern float magZ;
 
-    MPU9250_DMP imu;
+    MPU6050 mpu;
+    int16_t intXAccel, intYAccel, intZAccel;
     class MpuModule: public Rocket::RocketModule {
     public:
         virtual bool warmup() {
-            bool setupRight = imu.begin() == INV_SUCCESS;
+            mpu.initialize();
+            delay(100);
+            bool setupRight = mpu.testConnection();
             if(!setupRight) {
                 return false;
             }
-            imu.setGyroFSR(1000);
-            imu.setAccelFSR(16);
-            imu.setLPF(5);
-            imu.setSampleRate(500);
-            imu.setCompassSampleRate(10);
-            return setupRight;
+            mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_16);
+            return true;
         }
         virtual void refresh() {
-            imu.update();
-            accelX = imu.calcAccel(imu.ax); // accelX is x-axis acceleration in g's
-            accelY = imu.calcAccel(imu.ay); // accelY is y-axis acceleration in g's
-            accelZ = imu.calcAccel(imu.az); // accelZ is z-axis acceleration in g's
-
-            gyroX = imu.calcGyro(imu.gx); // gyroX is x-axis rotation in dps
-            gyroY = imu.calcGyro(imu.gy); // gyroY is y-axis rotation in dps
-            gyroZ = imu.calcGyro(imu.gz); // gyroZ is z-axis rotation in dps
-            
-            magX = imu.calcMag(imu.mx); // magX is x-axis magnetic field in uT
-            magY = imu.calcMag(imu.my); // magY is y-axis magnetic field in uT
-            magZ = imu.calcMag(imu.mz); // magZ is z-axis magnetic field in uTcc
+            mpu.getAcceleration(&intXAccel, &intYAccel, &intZAccel);
+            accelX = intXAccel / 2048.0;
+            accelY = intYAccel / 2048.0;
+            accelZ = intZAccel / 2048.0;
         }
     };
     MpuModule module;
