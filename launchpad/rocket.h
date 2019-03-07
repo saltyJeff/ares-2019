@@ -19,6 +19,8 @@ namespace Rocket {
 	#pragma pack(1)
 	struct ROCKET_DATA {
 		float BMP_altitude;
+		float BMP_temperature;
+		float BMP_pressure;
 		float MPU_accelX;
 		float MPU_accelY;
 		float MPU_accelZ;

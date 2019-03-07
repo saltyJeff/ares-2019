@@ -10,4 +10,6 @@ namespace Rocket {
         virtual void callibrate() {};
         virtual void shutdown() {};
     };
+    const byte startDelim[2] = {0xFF, 0xFF};
+    const byte endDelim[2] = {0xA4, 0x55};
 };

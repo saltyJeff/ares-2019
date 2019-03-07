@@ -1,5 +1,5 @@
 ///https://github.com/greiman/SdFat/archive/master.zip
-#include "rocket.h"
+#include "RocketModule.h"
 namespace Radio {
     //configured for the razor imu
     const int bytesBeforeDelay = 16;
@@ -13,8 +13,10 @@ namespace Radio {
             return true;
         }
         virtual void refresh() {
+            Serial1.write(Rocket::startDelim, 2);
             Serial1.write(Rocket::DATA_START, Rocket::DATA_LEN);
-            bytesWritten += Rocket::DATA_LEN;
+            Serial1.write(Rocket::endDelim, 2);
+            bytesWritten += Rocket::DATA_LEN + 4;
             if(bytesWritten > bytesBeforeDelay) {
                 delay(1);
             }

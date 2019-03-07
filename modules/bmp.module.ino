@@ -4,11 +4,13 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP3XX.h>
-#include <FlashStorage.h>
+#include <Persist.h>
 namespace BMP {
     extern float altitude;
+    extern float temperature;
+    extern float pressure;
 
-    FlashStorage(seaLevelHolder, float);
+    float seaLevelPressure = 1013.25;
 
     const int MISO = 8;
     const int MOSI = 9;
@@ -16,7 +18,9 @@ namespace BMP {
     const int BMP_CS = 11;
 
     Adafruit_BMP3XX bmp(BMP_CS, MOSI, MISO, SCK);
-    float seaLevel = seaLevelHolder.read();
+
+    float seaLevel = 0;
+
     class BmpModule: public Rocket::RocketModule {
     public:
         virtual void preWarmup() {
@@ -35,17 +39,13 @@ namespace BMP {
             bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
             return setupRight;
         }
-        virtual void calibrate() {
-            SerialUSB.println(F("Enter the pressure in hPAs at sea level"));
-            seaLevelHolder.write(SerialUSB.parseFloat());
-            seaLevel = seaLevelHolder.read();
-            SerialUSB.read(); //discard newline
-        }
         virtual void refresh() {
             if(!bmp.performReading()) {
                 return;
             }
-            altitude = bmp.readAltitude(seaLevel);
+            altitude = bmp.readAltitude(seaLevelPressure);
+            temperature = bmp.readTemperature();
+            pressure = bmp.readPressure();
         }
     };
     BmpModule module;
