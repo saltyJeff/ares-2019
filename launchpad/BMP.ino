@@ -1,7 +1,7 @@
 #include "rocket.h"
+#include "RocketModule.h"
 ///https://github.com/adafruit/Adafruit_BMP3XX/archive/master.zip
 ///https://github.com/adafruit/Adafruit_Sensor/archive/master.zip
-#include "RocketModule.h"
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP3XX.h>

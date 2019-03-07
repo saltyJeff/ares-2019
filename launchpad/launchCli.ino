@@ -8,10 +8,8 @@ void(* resetFunc) (void) = 0;
 
 //persistent settings (all bytes)
 FlashStorage(enabledModules, byte);
-FlashStorage(sdEnabled, bool);
-FlashStorage(radioEnabled, bool);
 
-byte enableByte = enabledModules.read(); //cache value to save a roundtrip
+byte enabledByte = enabledModules.read(); //cache value to save a roundtrip
 
 uint32_t refreshTimes[Rocket::MODULE_NUM];
 extern uint32_t totalRefresh;
@@ -35,7 +33,9 @@ void runCli() {
             break;
         case Rocket::SET_MODULES_EN:
             identifier = awaitArg();
-            enabledModules.write(identifier);
+            if(identifier != enabledByte) {
+                enabledModules.write(identifier);
+            }
             for(byte mask = 0x80; mask; mask >>= 1) {
                 if(mask & identifier) {
                     SerialUSB.print('1');
@@ -44,22 +44,20 @@ void runCli() {
                     SerialUSB.print('0');
                 }
             }
-            enableByte = identifier;
+            enabledByte = identifier;
             SerialUSB.println();
             Rocket::preWarmup();
             Rocket::warmup();           
             break;
         case Rocket::GET_MODULES_EN:
-            identifier = enabledModules.read();
             for(byte mask = 0x80; mask; mask >>= 1) {
-                if(mask & identifier) {
+                if(mask & enabledByte) {
                     SerialUSB.print('1');
                 }
                 else {
                     SerialUSB.print('0');
                 }
             }
-            enableByte = identifier;
             SerialUSB.println();           
             break;
         case Rocket::CALIBRATE:
@@ -102,46 +100,45 @@ inline bool byteFlag(byte b, int idx) {
 namespace Rocket {
     void preWarmup() {
         for(int i = 0; i < MODULE_NUM; i++) {
-            if(!byteFlag(enableByte, i)) {
+            if(!byteFlag(enabledByte, i)) {
                 continue;
             }
             SerialUSB.print(F("Pre-warming: "));
             SerialUSB.println(MODULE_NAMES[i]);
             handlers[i]->preWarmup();
         }
-        SerialUSB.print(F("Pre-warmup complete"));
+        SerialUSB.println(F("Pre-warmup complete"));
     }
     void warmup() {
         for(int i = 0; i < MODULE_NUM; i++) {
-            if(!byteFlag(enableByte, i)) {
+            if(!byteFlag(enabledByte, i)) {
                 continue;
             }
             SerialUSB.print(F("Warming up: "));
-            SerialUSB.print(MODULE_NAMES[i]);
+            SerialUSB.println(MODULE_NAMES[i]);
             if(handlers[i]->warmup()) {
                 SerialUSB.println(F(" ...successful"));
             }
             else {
                 SerialUSB.println(F(" ...unsuccessful, disabling"));
-                enableByte |= 1 << (7 - i);
+                enabledByte &= ~(1 << (7 - i));
             }
         }
-        SerialUSB.print(F("Warmup complete"));
+        SerialUSB.println(F("Warmup complete"));
     }
     void refresh() {
         for(int i = 0; i < MODULE_NUM; i++) {
-            if(!byteFlag(enableByte, i)) {
+            if(!byteFlag(enabledByte, i)) {
                 continue;
             }
             uint32_t startTime = millis();
             handlers[i]->refresh();
             refreshTimes[i] = millis() - startTime;
         }
-        data.timestamp = millis();
     }
     void callibrate() {
         for(int i = 0; i < MODULE_NUM; i++) {
-            if(!byteFlag(enableByte, i)) {
+            if(!byteFlag(enabledByte, i)) {
                 continue;
             }
             SerialUSB.print(F("Callibrating: "));
@@ -151,7 +148,7 @@ namespace Rocket {
     }
     void shutdown() {
         for(int i = 0; i < MODULE_NUM; i++) {
-            if(!byteFlag(enableByte, i)) {
+            if(!byteFlag(enabledByte, i)) {
                 continue;
             }
             SerialUSB.print(F("Shutting down: "));

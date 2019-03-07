@@ -11,6 +11,9 @@ namespace BNO {
 namespace MPU {
 	extern Rocket::RocketModule *handler;
 }
+namespace Pressure {
+	extern Rocket::RocketModule *handler;
+}
 namespace Radio {
 	extern Rocket::RocketModule *handler;
 }
@@ -29,6 +32,10 @@ namespace Rocket {
 		float MPU_accelX;
 		float MPU_accelY;
 		float MPU_accelZ;
+		float Pressure_cc;
+		float Pressure_fuel;
+		float Pressure_ox;
+		float Pressure_press;
 		uint32_t timestamp;
 	};
 	ROCKET_DATA data;
@@ -39,13 +46,14 @@ namespace Rocket {
 	extern const __FlashStringHelper *TYPE_CSV;
 	extern const __FlashStringHelper *MODULE_CSV;
 
-	const int MODULE_NUM = 5;
+	const int MODULE_NUM = 6;
 	const int BMP_ID = 0;
 	const int BNO_ID = 1;
 	const int MPU_ID = 2;
-	const int Radio_ID = 3;
-	const int SdCard_ID = 4;
-	Rocket::RocketModule *handlers[] = {BMP::handler, BNO::handler, MPU::handler, Radio::handler, SdCard::handler};
-	extern const __FlashStringHelper *MODULE_NAMES[5];
+	const int Pressure_ID = 3;
+	const int Radio_ID = 4;
+	const int SdCard_ID = 5;
+	Rocket::RocketModule *handlers[] = {BMP::handler, BNO::handler, MPU::handler, Pressure::handler, Radio::handler, SdCard::handler};
+	extern const __FlashStringHelper *MODULE_NAMES[6];
 }
 

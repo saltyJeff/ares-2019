@@ -1,4 +1,5 @@
 #include "rocket.h"
+#include "RocketModule.h"
 ///https://github.com/greiman/SdFat/archive/master.zip
 #include "rocket.h"
 namespace Radio {

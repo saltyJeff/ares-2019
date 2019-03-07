@@ -1,6 +1,5 @@
 ///https://github.com/adafruit/Adafruit_BNO055/archive/master.zip
 ///https://github.com/adafruit/Adafruit_Sensor/archive/master.zip
-#include "RocketModule.h"
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
