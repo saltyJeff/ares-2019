@@ -25,7 +25,7 @@ namespace SdCard {
         virtual bool warmup() {
             bool worked = SDCard.begin(SD_CHIP_SELECT_PIN, SPI_FULL_SPEED);
             if(!worked) {
-                SerialUSB.println("Failed to initialize card");
+                SerialUSB.println(F("Failed to initialize card"));
                 return worked;
             }
             worked = file.open("rocket_log.bin", O_TRUNC | O_CREAT | O_WRITE);
