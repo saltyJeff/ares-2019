@@ -24,6 +24,8 @@ namespace SdCard {
 namespace Rocket {
 	#pragma pack(1)
 	struct ROCKET_DATA {
+		byte start1 = 0xff;
+		byte start2 = 0xff;
 		float BMP_altitude;
 		float BMP_temperature;
 		float BMP_pressure;
@@ -39,6 +41,8 @@ namespace Rocket {
 		float Pressure_ox;
 		float Pressure_press;
 		uint32_t timestamp;
+		byte end1 = 0xa4;
+		byte end2 = 0x55;
 	};
 	ROCKET_DATA data;
 
