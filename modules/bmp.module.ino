@@ -6,6 +6,8 @@
 
 namespace BMP {
     extern float altitude;
+    extern float temperature;
+    extern float pressure;
 
     float seaLevel = 1013.25;
 
@@ -44,6 +46,8 @@ namespace BMP {
                 return;
             }
             altitude = bmp.readAltitude(seaLevel);
+            temperature = bmp.readTemperature();
+            pressure = bmp.readPressure();
         }
     };
     BmpModule module;

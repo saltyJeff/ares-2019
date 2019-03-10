@@ -11,7 +11,7 @@ namespace SdCard {
     //configured for the razor imu
     const int SD_CHIP_SELECT_PIN = 38;
     #endif
-    const int bytesBeforeFlush = 400;
+    const int bytesBeforeFlush = 512;
     
     SdFat SDCard;
     SdFile file;

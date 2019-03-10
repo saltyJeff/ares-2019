@@ -25,6 +25,8 @@ namespace Rocket {
 	#pragma pack(1)
 	struct ROCKET_DATA {
 		float BMP_altitude;
+		float BMP_temperature;
+		float BMP_pressure;
 		float BNO_w;
 		float BNO_x;
 		float BNO_y;

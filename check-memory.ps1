@@ -1,0 +1,1 @@
+avr-nm -Crtd --size-sort ./build/launchpad.ino.elf  | Select-String ' [dbv] '

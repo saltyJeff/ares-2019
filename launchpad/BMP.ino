@@ -8,6 +8,8 @@
 
 namespace BMP {
     float &altitude = Rocket::data.BMP_altitude;
+    float &temperature = Rocket::data.BMP_temperature;
+    float &pressure = Rocket::data.BMP_pressure;
 
     float seaLevel = 1013.25;
 
@@ -46,6 +48,8 @@ namespace BMP {
                 return;
             }
             altitude = bmp.readAltitude(seaLevel);
+            temperature = bmp.readTemperature();
+            pressure = bmp.readPressure();
         }
     };
     BmpModule module;
