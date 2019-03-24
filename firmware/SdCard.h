@@ -5,12 +5,12 @@
 #define SD_CHIPSEL 38
 
 namespace SdCard {
-    class SdCardClass: public Rocket::RocketModule {
+    class Handler: public Rocket::RocketModule {
     public:
         SdFat sdCard;
         SdBaseFile saveFile;
         int bytesWritten = 0;
-        char *fileName = "rocket_data.bin";
+        const char *fileName = "rocket_data.bin";
         virtual bool warmup() {
             SerialUSB.println(sdCard.card()->errorCode());
             if(!sdCard.begin(SD_CHIPSEL)) {

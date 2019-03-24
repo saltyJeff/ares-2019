@@ -14,7 +14,7 @@ namespace Mpu {
     float &magY = Rocket::data.Mpu_magY;
     float &magZ = Rocket::data.Mpu_magZ;
 
-    class MpuClass: public Rocket::RocketModule {
+    class Handler: public Rocket::RocketModule {
     public:
         MPU9250_DMP imu;
         virtual bool warmup() {

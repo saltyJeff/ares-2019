@@ -2,7 +2,7 @@
 #include "RocketModule.h"
 namespace Radio {
     //configured for the razor imu
-    class RadioClass: public Rocket::RocketModule {
+    class Handler: public Rocket::RocketModule {
     public:
         virtual bool warmup() {
             //it's all RX TX, we can only hope
