@@ -32,7 +32,7 @@ namespace Rocket {
 	const int SdCard_ID = 2;
 }
 
-#include "rocket_consts.h"
+#include "rocket_strings.h"
 
 #include "Mpu.h"
 #include "Radio.h"
