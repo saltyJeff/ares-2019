@@ -1,3 +1,0 @@
-Mpu_accelX,Mpu_accelY,Mpu_accelZ,Mpu_gyroX,Mpu_gyroY,Mpu_gyroZ,Mpu_magX,Mpu_magY,Mpu_magZ,timestamp
-float,float,float,float,float,float,float,float,float,uint32_t
-Mpu, Radio, SdCard
