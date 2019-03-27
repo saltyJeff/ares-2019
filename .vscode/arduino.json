@@ -1,6 +1,0 @@
-{
-    "port": "COM15",
-    "board": "SparkFun:samd:samd21_9dof",
-    "sketch": "firmware/firmware.ino",
-    "output": "verbose"
-}
