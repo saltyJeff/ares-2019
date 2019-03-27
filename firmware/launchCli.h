@@ -9,6 +9,6 @@ namespace Rocket {
     const byte CALIBRATE = 0x6;
     const byte RESET = 0x7;
     const byte BENCH = 0x8;
-    const byte PING = 0x9;
-    const byte SHUTDOWN = 0xA;
+    const byte SHUTDOWN = 0x9;
+    const byte PING = 0xA; //will be newline
 }

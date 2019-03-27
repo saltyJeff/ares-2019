@@ -1,1 +1,4 @@
 verbose/
+
+.vscode/*
+!.vscode/arduino.json

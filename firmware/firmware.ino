@@ -34,5 +34,8 @@ void loop() {
 		totalRefresh = millis() - startTime;
 		highLoop = !highLoop;
 	}
+	else {
+		digitalWrite(LED_BUILTIN, LOW);
+	}
 	runCli();
 }
