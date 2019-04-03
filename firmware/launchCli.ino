@@ -48,7 +48,8 @@ void runCli() {
             SerialUSB.println();           
             break;
         case Rocket::CALIBRATE:
-            callibrate();
+            identifier = awaitArg();
+            calibrate(identifier);
             break;
         case Rocket::RESET:
             shutdown();
@@ -93,7 +94,7 @@ void preWarmup() {
             continue;
         }
         SerialUSB.print("Pre-warming module: ");
-        SerialUSB.println(i);
+        SerialUSB.println(Rocket::MODULE_NAMES[i]);
         Rocket::handlers[i]->preWarmup();
     }
     SerialUSB.println("Pre-warmup complete");
@@ -128,14 +129,17 @@ void refresh() {
     }
     Rocket::data.timestamp = millis();
 }
-void callibrate() {
+//an argument of 8 will calibrate everything
+void calibrate(byte arg) {
     for(int i = 0; i < Rocket::MODULE_NUM; i++) {
         if(!byteFlag(enabledByte, i)) {
             continue;
         }
-        SerialUSB.print(F("Callibrating: "));
-        SerialUSB.println(Rocket::MODULE_NAMES[i]);
-        Rocket::handlers[i]->callibrate();
+        if(arg == 8 || i == arg) {
+            SerialUSB.print(F("Calibrating: "));
+            SerialUSB.println(Rocket::MODULE_NAMES[i]);
+            Rocket::handlers[i]->calibrate();
+        }
     }
 }
 void shutdown() {

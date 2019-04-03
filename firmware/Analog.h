@@ -1,20 +1,20 @@
 #pragma once
 #include "RocketModule.h"
 namespace Analog {
-    uint16_t &press0 = Rocket::data.Analog_press0;
-    uint16_t &press1 = Rocket::data.Analog_press1;
-    uint16_t &press2 = Rocket::data.Analog_press2;
-    uint16_t &press3 = Rocket::data.Analog_press3;
+    uint16_t &CC = Rocket::data.Analog_CC;
+    uint16_t &fuel = Rocket::data.Analog_fuel;
+    uint16_t &OX = Rocket::data.Analog_OX;
+    uint16_t &press = Rocket::data.Analog_press;
     class Handler: public Rocket::RocketModule {
     public:
         virtual bool warmup() {
             return true;
         }
         virtual void refresh() {
-            press0 = analogRead(A0);
-            press1 = analogRead(A1);
-            press2 = analogRead(A2);
-            press3 = analogRead(A3);
+            CC = analogRead(A0);
+            fuel = analogRead(A1);
+            OX = analogRead(A2);
+            press = analogRead(A3);
         }
     };
 }

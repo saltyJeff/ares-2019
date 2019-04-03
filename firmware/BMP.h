@@ -29,17 +29,21 @@ namespace Bmp {
             if(!setupRight) {
                 return false;
             }
-            bmp.setTemperatureOversampling(BMP3_OVERSAMPLING_8X);
-            bmp.setPressureOversampling(BMP3_OVERSAMPLING_8X);
+            bmp.setTemperatureOversampling(BMP3_NO_OVERSAMPLING);
+            bmp.setPressureOversampling(BMP3_NO_OVERSAMPLING);
+            //bmp.setIIRFilterCoeff(BMP3_IIR_FILTER_DISABLE);
+            bmp.setOutputDataRate(BMP3_ODR_200_HZ);
             return setupRight;
         }
         virtual void refresh() {
             if(!bmp.performReading()) {
                 return;
             }
+            //each read will cache the values for a given reading, no need
+            //to perform another reading for temp/press
             altitude = bmp.readAltitude(seaLevel);
-            temperature = bmp.readTemperature();
-            pressure = bmp.readPressure();
+            temperature = bmp.temperature;
+            pressure = bmp.pressure;
         }
     };
 }

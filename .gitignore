@@ -2,3 +2,5 @@ verbose/
 
 .vscode/*
 !.vscode/arduino.json
+config.csv
+rocket_data.csv

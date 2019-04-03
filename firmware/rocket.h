@@ -7,10 +7,10 @@ namespace Rocket {
 	struct ROCKET_DATA {
 		byte start1 = 0xff;
 		byte start2 = 0xff;
-		uint16_t Analog_press0;
-		uint16_t Analog_press1;
-		uint16_t Analog_press2;
-		uint16_t Analog_press3;
+		uint16_t Analog_CC;
+		uint16_t Analog_fuel;
+		uint16_t Analog_OX;
+		uint16_t Analog_press;
 		float Bmp_altitude;
 		float Bmp_temperature;
 		float Bmp_pressure;

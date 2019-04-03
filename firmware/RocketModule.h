@@ -6,7 +6,7 @@ namespace Rocket {
         virtual void preWarmup() {};
         virtual bool warmup() { return true; };
         virtual void refresh() = 0;
-        virtual void callibrate() {};
+        virtual void calibrate() {};
         virtual void shutdown() {};
     };
 };

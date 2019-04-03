@@ -4,7 +4,7 @@ namespace Radio {
     //configured for the razor imu
     class Handler: public Rocket::RocketModule {
     public:
-        const int BYTES_PER_REFRESH = 8;
+        const int BYTES_PER_REFRESH = 24;
         bool needsRefresh = true;
         Rocket::ROCKET_DATA cache;
         int currentWrite = 0;
