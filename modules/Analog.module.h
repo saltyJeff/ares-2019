@@ -1,3 +1,4 @@
+#include <FlashStorage.h>
 #define AVG_100(V) \
     [&] { \
     float total = 0; \
