@@ -156,3 +156,4 @@ namespace Mpu {
         }
     };
 }
+#undef AVG_100
