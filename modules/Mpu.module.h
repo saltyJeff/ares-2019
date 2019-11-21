@@ -76,7 +76,7 @@ namespace Mpu {
             imu.update(UPDATE_ACCEL | UPDATE_GYRO | UPDATE_COMPASS);
             accelX = (imu.calcAccel(imu.ax) - offsetVals[0]) * scaleVals[0]; // accelX is x-axis acceleration in g's
             accelY = (imu.calcAccel(imu.ay) - offsetVals[1]) * scaleVals[1]; // accelY is y-axis acceleration in g's
-            accelZ = (imu.calcAccel(imu.ay) - offsetVals[2]) * scaleVals[2]; // accelZ is z-axis acceleration in g's
+            accelZ = (imu.calcAccel(imu.az) - offsetVals[2]) * scaleVals[2]; // accelZ is z-axis acceleration in g's
 
             gyroX = (imu.calcGyro(imu.gx) - offsetVals[3]); // gyroX is x-axis rotation in dps
             gyroY = (imu.calcGyro(imu.gy) - offsetVals[4]); // gyroY is y-axis rotation in dps
